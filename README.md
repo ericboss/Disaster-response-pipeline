@@ -1,5 +1,24 @@
 # Disaster Response Pipeline Project
 
+## Project Motivation
+This project helped me build my data engineering skills to expand my opportunities and potential as a data scientist. In this project, I applied these skills to analyze disaster data from [Figure Eight](https://www.figure-eight.com/) to build a model for an API that classifies disaster messages.
+
+### Install
+
+This project requires **Python 3** and the following Python libraries installed:
+
+- [NumPy](http://www.numpy.org/)
+- [Pandas](http://pandas.pydata.org)
+- [matplotlib](http://matplotlib.org/)
+- [scikit-learn](http://scikit-learn.org/stable/)
+- [regex](https://regexr.com/)
+- [nltk](https://www.nltk.org/)
+- [Sqlalchemy](https://www.sqlalchemy.org/)
+- [Plotly](https://plot.ly/)
+- [json](https://www.json.org/)
+- [Flask](http://flask.pocoo.org/)
+
+
 ### Instructions:
 1. Run the following commands in the project's root directory to set up your database and model.
 
