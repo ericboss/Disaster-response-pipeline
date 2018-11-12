@@ -18,6 +18,22 @@ This project requires **Python 3** and the following Python libraries installed:
 - [json](https://www.json.org/)
 - [Flask](http://flask.pocoo.org/)
 
+## File Description
+
+    workspace.
+    ├── app     
+    │   ├── run.py                           # Flask file that runs app
+    │   └── templates   
+    │       ├── go.html                      # Classification result page of web app
+    │       └── master.html                  # Main page of web app    
+    ├── data                   
+    │   ├── disaster_categories.csv          # Dataset including all the categories  
+    │   ├── disaster_messages.csv            # Dataset including all the messages
+    │   └── process_data.py                  # Data cleaning
+    ├── models
+    │   └── train_classifier.py              # Train ML model           
+    └── README.md
+
 
 ### Instructions:
 1. Run the following commands in the project's root directory to set up your database and model.
