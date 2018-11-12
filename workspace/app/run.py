@@ -8,6 +8,7 @@ from nltk.tokenize import word_tokenize
 from flask import Flask
 from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
+from plotly.graph_objs import Pie
 from sklearn.externals import joblib
 from sqlalchemy import create_engine
 
@@ -42,6 +43,10 @@ def index():
     # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
+    columns = list(df.columns[4:])
+    mean_ = []
+    for i in columns:
+        mean_.append(df[i].mean())
     
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
@@ -63,6 +68,19 @@ def index():
                     'title': "Genre"
                 }
             }
+        },
+        
+        {
+            'data': [
+                Pie(
+                    labels=columns,
+                    values=mean_
+                )
+            ],
+
+           
+             
+            
         }
     ]
     
