@@ -36,7 +36,7 @@ This project requires **Python 3** and the following Python libraries installed:
 
 
 ### Instructions:
-1. Run the following commands in the project's root directory to set up your database and model.
+1. Run the following commands in the project's root directory(workspace) to set up your database and model.
 
     - To run ETL pipeline that cleans data and stores in database
         `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
@@ -47,3 +47,5 @@ This project requires **Python 3** and the following Python libraries installed:
     `python run.py`
 
 3. Go to http://0.0.0.0:3001/
+
+![alt text](https://github.com/ericboss/Disaster-response-pipeline/blob/master/workspace/img.png)
