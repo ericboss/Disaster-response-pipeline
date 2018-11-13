@@ -72,7 +72,14 @@ def tokenize(text):
 
 
 def build_model():
-    """Builds classification model """
+    """
+    Builds classification model 
+     Args:
+        None
+    Returns:
+        cv: model pipeline.  
+    
+    """
 
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
@@ -92,6 +99,18 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+     """
+    Evaluates classification model performance on data 
+     Args:
+        model: classification model
+        X_test: test data
+        Y_test: test categories
+        caregory_names: column names of the categories
+    Returns:
+        None
+    
+    """
+
     
     y_preds = model.predict(X_test)
     print(classification_report(Y_test.values, y_preds, target_names=category_names))
@@ -101,6 +120,16 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+     """
+    Saves classification model 
+     Args:
+        model: classification model
+        model_filepath: path to save the model
+    Returns:
+        None  
+    
+    """
+
     # Dump the trained  classifier with Pickle
     model_pkl_filename = model_filepath
     # Open the file to save as pkl file
