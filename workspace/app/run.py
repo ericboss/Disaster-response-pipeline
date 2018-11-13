@@ -1,9 +1,14 @@
 import json
 import plotly
 import pandas as pd
-
+from collections import Counter
+import numpy as np 
+import re
+import nltk 
+nltk.download(['punkt', 'stopwords', 'wordnet'])
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
 
 from flask import Flask
 from flask import render_template, request, jsonify
@@ -13,16 +18,26 @@ from sklearn.externals import joblib
 from sqlalchemy import create_engine
 
 
+
 app = Flask(__name__)
 
 def tokenize(text):
-    tokens = word_tokenize(text)
-    lemmatizer = WordNetLemmatizer()
+    """Prepare text for modeling.
+    Args:
+        text: Text string.
+    Returns:
+        clean_tokens: Cleaned tokens ready for modeling.
+    """
+    # normalize case and remove punctuation
+    text = re.sub(r"[^a-zA-Z0-9]", " ", text.lower())
 
-    clean_tokens = []
-    for tok in tokens:
-        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
-        clean_tokens.append(clean_tok)
+    # tokenize text
+    tokens = word_tokenize(text)
+
+    # lemmatize and remove stop words
+    lemmatizer = WordNetLemmatizer()
+    stop_words = stopwords.words("english")
+    clean_tokens = [lemmatizer.lemmatize(word).strip() for word in tokens if word not in stop_words]
 
     return clean_tokens
 # load model
@@ -47,7 +62,40 @@ def index():
     mean_ = []
     for i in columns:
         mean_.append(df[i].mean())
+    def compute_word_counts(messages, load=True, filepath='data/counts.npz'):
+        '''
+        input: (
+        messages: list or numpy array
+        load: Boolean value if load or run model 
+        filepath: filepath to save or load data
+            )
+        Function computes the top 20 words in the dataset with counts of each term
+        output: (
+        top_words: list
+        top_counts: list 
+            )
+        '''
+        if load:
+        # load arrays
+            data = np.load(filepath)
+            return list(data['top_words']), list(data['top_counts'])
+        else:
+        # get top words 
+            counter = Counter()
+            for message in messages:
+                tokens = tokenize(message)
+                for token in tokens:
+                    counter[token] += 1
+        # top 20 words 
+            top = counter.most_common(20)
+            top_words = [word[0] for word in top]
+            top_counts = [count[1] for count in top]
+        # save arrays
+            np.savez(filepath, top_words=top_words, top_counts=top_counts)
+        return list(top_words), list(top_counts)
     
+    message = df.message.values.tolist()
+    word, count = compute_word_counts(message, load=False)
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
     graphs = [
@@ -73,15 +121,31 @@ def index():
         {
             'data': [
                 Pie(
+                    labels=word[:10],
+                    values=count[:10]
+                )
+            ],
+
+           "layout": {
+        "title":"Top Ten Word Messages"}
+             
+            
+        },
+        
+        {
+            'data': [
+                Pie(
                     labels=columns,
                     values=mean_
                 )
             ],
 
-           
+           "layout": {
+        "title":"Distribution of Category Messages"}
              
             
         }
+      
     ]
     
     # encode plotly graphs in JSON
