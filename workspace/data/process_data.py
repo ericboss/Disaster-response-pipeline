@@ -62,7 +62,8 @@ def save_data(df, database_filename):
     Function to save cleaned data in SQlite database
      Args:
         df: cleaned data.
-   
+     Retuns:
+         None
     """
     engine = create_engine('sqlite:///'+database_filename)
     df.to_sql('disaster', engine, index=False,if_exists='replace')
