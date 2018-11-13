@@ -49,3 +49,6 @@ This project requires **Python 3** and the following Python libraries installed:
 3. Go to http://0.0.0.0:3001/
 
 ![alt text](https://github.com/ericboss/Disaster-response-pipeline/blob/master/workspace/img.png)
+
+
+![alt text](https://github.com/ericboss/Disaster-response-pipeline/blob/master/workspace/img2.png)
