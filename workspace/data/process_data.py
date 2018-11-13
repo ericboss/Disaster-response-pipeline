@@ -7,6 +7,12 @@ from sqlalchemy import create_engine
 def load_data(messages_filepath, categories_filepath):
     """
     Function to load data
+    
+    Args:
+        messages_filepath: path to messages.csv
+        categories_filepath: path to disaster_categories.csv
+    Returns:
+        df: Loaded data.
     """
     messages = pd.read_csv(messages_filepath)
     
@@ -54,9 +60,12 @@ def clean_data(df):
 def save_data(df, database_filename):
     """
     Function to save cleaned data in SQlite database
+     Args:
+        df: cleaned data.
+   
     """
     engine = create_engine('sqlite:///'+database_filename)
-    df.to_sql('disaster', engine, index=False)
+    df.to_sql('disaster', engine, index=False,if_exists='replace')
       
 
 
