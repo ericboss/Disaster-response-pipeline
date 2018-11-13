@@ -9,7 +9,7 @@ def load_data(messages_filepath, categories_filepath):
     Function to load data
     
     Args:
-        messages_filepath: path to messages.csv
+        messages_filepath: path to disaster_messages.csv
         categories_filepath: path to disaster_categories.csv
     Returns:
         df: Loaded data.
